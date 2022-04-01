@@ -1,0 +1,8 @@
+Now that the parsing is done, all that needs to be done is the actual
+solving. The computer and I can finally communicate thanks to the parsing.
+
+Process of solving:
+
+1. Combine like terms
+2. Isolate the variable terms
+3. Isolate the variable from the term

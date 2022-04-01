@@ -8,3 +8,15 @@
 # Contact: organizationpythonprogramming.gmail.com
 
 from models import *
+
+
+myEqua = Equation("9x - 8y  =90")
+
+for i in myEqua.rhs.terms:
+	print(i.term)
+
+
+# Algorithm to shift an element from LHS to RHS
+
+# def Move_term(term:str) -> None :
+
