@@ -1,5 +1,6 @@
 # This file focuses on how to parse and store the input equation
 
+# import re
 from string import ascii_letters as letters
 
 
@@ -32,8 +33,10 @@ class Term:
         self.charge = "-" if charge.count("-") % 2 == 1 else "+"
         self.lit_coef = lit_coef
         self.num_coef = float(self.charge+num_coef)
+        self.magNum = float(num_coef)
         self.term = str(self.num_coef)+self.lit_coef
     def __str__(self) -> str:
+        self.term = str(self.num_coef)+self.lit_coef
         return self.term
     def getCharge(self):
         return self.charge
@@ -41,14 +44,20 @@ class Term:
         return self.lit_coef
     def getNumCoef(self):
         return self.num_coef
-    def getMagnitude(self):
-        return str(self.num_coef)+self.lit_coef
-    def add(self, term):
-        if term.getLitCoef() == self.getLitCoef():
-            pass
+    def setNumCoef(self, value):
+        self.num_coef = value
+        self.magNum = abs(value)
+    def getMagNum(self):
+        return self.magNum
     def inverse(self):
         return Term(str(-self.getNumCoef())+self.getLitCoef())
-
+    def getOnlyMag(self):
+        return str(self.getMagNum())+self.getLitCoef()
+    def forprint(self):
+        if self.getMagNum() == 1:
+            return self.getLitCoef()
+        else:
+            return self.getOnlyMag()
 
 
 class Expression:
@@ -69,6 +78,9 @@ class Expression:
     def getTerms(self):
         return self.terms
     def setTerms(self, terms):
+        # print("before terms", [str(j) for j in terms])
+        terms = [i for i in terms if i.getNumCoef() != 0]
+        # print("after terms", [str(k) for k in terms])
         self.terms = terms
     def __str__(self) -> str:
         result = ""
@@ -76,11 +88,11 @@ class Expression:
         for i in self.terms:
             # if this is the first term, make the sign of the term close to it.
             if first:
-                result += i.getMagnitude() #+" " if i.getCharge() == "+" else "-"+i.getMagnitude()+" "
+                result += i.forprint()+" " if i.getCharge() == "+" else "-"+i.forprint()+" "
                 first = False
             # otherwise make the sign an operator instead
             else:
-                result += i.getCharge()+" "+i.getMagnitude()+" "
+                result += i.getCharge()+" "+i.forprint()+" "
         # finally, return the str but remove the trailing " " (space)
         return result[:-1]
 
@@ -110,6 +122,8 @@ class Equation:
         return str(self.expr1) + " = " + str(self.expr2)
 
 
-# eq1 = Equation("5x - 6c + 8 = -r + 3e")
 # t = Term("5g")
 # print(t.inverse())
+# eq1 = Equation("5x - x
+# eq = Equation("5x + 3 = 13")
+# print(eq.getExpr1())
