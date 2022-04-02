@@ -90,11 +90,11 @@ def divSide(side, n):
     # print(n)
     for i in range(len(terms)):
         terms[i].setNumCoef(terms[i].getNumCoef()/n)
-        print(terms[i])
+        # print(terms[i])
     # print([str(i) for i in terms])
     # print(side)
     side.setTerms(terms)
-    print(side)
+    # print(side)
     return side
 
 def solveForVar(equa):
@@ -111,18 +111,13 @@ def solve(equa):
     """
     # Step 1: Adding the like terms on each side
     equa = simplifySides(equa)
-    print(equa)
+    # print(equa)
     # Step 2: Taking contant terms and variable terms to opposite sides
     equa = sendToSides(equa)
-    print(equa)
+    # print(equa)
     # Step 3: Isolating the variable term by dividing the whole equation
     # by its numberical coefficient
     equa = solveForVar(equa)
-    print(equa)
+    # print(equa)
+    return equa
 
-
-
-eq = Equation("3x + 6 = -7x + 9 + x")
-# print(eq.getExpr1().getTerms()[0].inverse())
-solve(eq)
-    
